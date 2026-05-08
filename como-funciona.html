@@ -704,29 +704,33 @@
     /* ============ MOBILE NAV (HAMBURGER) ============ */
     .nav-toggle {
       display: none;
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border: 1px solid var(--line);
-      border-radius: 4px;
+      border-radius: 6px;
       background: rgba(0,0,0,.4);
       cursor: pointer;
       padding: 0;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 5px;
+      justify-self: end;
       transition: border-color .2s ease, background .2s ease;
     }
     .nav-toggle:hover { border-color: var(--gold); background: rgba(214,169,79,.08); }
     .nav-toggle span {
       display: block;
-      width: 18px;
-      height: 1.5px;
-      margin: 2.5px auto;
+      width: 22px;
+      height: 2px;
+      margin: 0;
+      border-radius: 2px;
       background: var(--gold-2);
       transition: transform .25s ease, opacity .2s ease;
     }
-    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .mobile-drawer {
       display: none;
       position: fixed;
@@ -770,9 +774,35 @@
       .nav-cta { display: none !important; }
       .nav-toggle { display: inline-flex; }
       .mobile-drawer { display: block; }
-      .page-hero-grid { grid-template-columns: 1fr; gap: 0; min-height: auto; padding: 44px 0; }
-      .page-hero { height: auto; }
-      .page-hero-image { max-width: none; }
+      .page-hero { height: auto; min-height: 380px; }
+      .page-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        min-height: 380px;
+        height: auto;
+        padding: 44px 0;
+        position: relative;
+      }
+      .page-hero-text {
+        position: relative;
+        z-index: 2;
+        min-height: 292px;
+      }
+      .page-hero-image {
+        inset: 0;
+        max-width: none;
+        z-index: 0;
+      }
+      .page-hero-image img {
+        object-fit: cover;
+        object-position: center;
+        transform: none;
+        filter: saturate(.7) contrast(1.05) brightness(.5);
+      }
+      .page-hero-image::after {
+        background:
+          linear-gradient(180deg, rgba(5,5,5,.55) 0%, rgba(5,5,5,.35) 45%, rgba(5,5,5,.75) 100%);
+      }
       .steps-grid { grid-template-columns: repeat(3, 1fr); }
       .steps-grid::before { display: none; }
       .send-grid { grid-template-columns: repeat(2, 1fr); }

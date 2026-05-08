@@ -1102,29 +1102,33 @@
     /* ============ MOBILE NAV (HAMBURGER) ============ */
     .nav-toggle {
       display: none;
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border: 1px solid var(--line);
-      border-radius: 4px;
+      border-radius: 6px;
       background: rgba(0,0,0,.4);
       cursor: pointer;
       padding: 0;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 5px;
+      justify-self: end;
       transition: border-color .2s ease, background .2s ease;
     }
     .nav-toggle:hover { border-color: var(--gold); background: rgba(214,169,79,.08); }
     .nav-toggle span {
       display: block;
-      width: 18px;
-      height: 1.5px;
-      margin: 2.5px auto;
+      width: 22px;
+      height: 2px;
+      margin: 0;
+      border-radius: 2px;
       background: var(--gold-2);
       transition: transform .25s ease, opacity .2s ease;
     }
-    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .mobile-drawer {
       display: none;
       position: fixed;
@@ -1270,28 +1274,54 @@
         display: grid;
         grid-template-columns: 1fr;
         overflow: visible;
-        gap: 14px;
+        gap: 18px;
       }
       .steps::before {
         display: block;
-        left: 28px;
+        left: 29px;
         right: auto;
-        top: 18px;
-        bottom: 18px;
+        top: 32px;
+        bottom: 32px;
         height: auto;
         border-top: 0;
         border-left: 1px dashed rgba(214,169,79,.45);
       }
       .step {
         display: grid;
-        grid-template-columns: 58px 34px 1fr;
-        gap: 10px;
+        grid-template-columns: 58px auto 1fr;
+        column-gap: 14px;
+        row-gap: 6px;
         align-items: center;
         text-align: left;
+        padding: 4px 0;
       }
-      .step .icon,
-      .step b { margin: 0; }
-      .step span { max-width: none; margin: 0; }
+      .step .icon {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        margin: 0;
+        align-self: center;
+      }
+      .step b {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+        align-self: center;
+      }
+      .step strong {
+        grid-column: 3;
+        grid-row: 1;
+        margin: 0;
+        align-self: center;
+        text-align: left;
+      }
+      .step span {
+        grid-column: 2 / -1;
+        grid-row: 2;
+        margin: 0;
+        max-width: none;
+        text-align: left;
+        font-size: 12px;
+      }
       .cases-intro { grid-template-columns: 1fr; }
       .case-list { gap: 12px; }
       .case-card { grid-template-columns: 110px 1fr; min-height: 92px; }
