@@ -6,6 +6,25 @@
   <title>Como Funciona | Ateliê Dental</title>
   <meta name="description" content="Do envio do caso à entrega no consultório. Veja como é simples, rápido e transparente trabalhar com o Ateliê Dental." />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Como Funciona | Ateliê Dental">
+  <meta property="og:description" content="Do envio do caso à entrega no consultório. Veja como é simples, rápido e transparente trabalhar com o Ateliê Dental.">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Ateliê Dental">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Como Funciona | Ateliê Dental">
+  <meta name="twitter:description" content="Do envio do caso à entrega no consultório. Veja como é simples, rápido e transparente trabalhar com o Ateliê Dental.">
+  <meta name="twitter:image" content="assets/images/og-image.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -157,8 +176,7 @@
     }
     .step-card:hover .icon,
     .send-card:hover .icon,
-    .track-card:hover .icon,
-    .faq-mini:hover .icon {
+    .track-card:hover .icon {
       transform: translateY(-2px) rotate(-8deg) scale(1.06);
       color: var(--gold-2);
       border-color: rgba(240,199,110,.82);
@@ -518,54 +536,91 @@
     }
 
     /* ============================================================
-       MINI FAQ (3 quick items)
+       FAQ ACCORDION
        ============================================================ */
     .faq-section { padding: 36px 0 64px; }
-    .faq-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 980px;
+      margin: 0 auto;
     }
-    .faq-mini {
-      padding: 22px 24px;
+    .faq-item {
       border: 1px solid rgba(214,169,79,.20);
       border-radius: 8px;
       background: rgba(11,11,10,.72);
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 14px;
-      transition: transform .25s ease, border-color .25s ease, background .25s ease;
-      cursor: pointer;
+      overflow: hidden;
+      transition: border-color .25s ease, background .25s ease;
     }
-    .faq-mini:hover {
-      transform: translateX(4px);
-      border-color: rgba(214,169,79,.55);
+    .faq-item[open],
+    .faq-item.is-open {
+      border-color: rgba(214,169,79,.50);
       background: rgba(15,15,13,.85);
     }
-    .faq-mini .icon { width: 38px; height: 38px; }
-    .faq-mini .icon svg { width: 18px; height: 18px; }
-    .faq-mini h3 {
-      margin: 0;
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::marker { content: ""; }
+    .faq-q {
       font-family: "Cormorant Garamond", Georgia, serif;
       font-weight: 600;
-      font-size: 17px;
-      line-height: 1.2;
+      font-size: 18px;
+      line-height: 1.3;
       letter-spacing: -.01em;
       color: var(--ink);
+      transition: color .2s ease;
     }
-    .faq-mini h3 + span {
-      display: block;
-      margin-top: 3px;
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-    .faq-mini .arrow {
+    .faq-icon {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
       color: var(--gold);
-      font-size: 18px;
-      transition: transform .25s ease;
+      font-size: 20px;
+      line-height: 1;
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), color .2s ease, border-color .2s ease;
     }
-    .faq-mini:hover .arrow { transform: translateX(4px); }
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+      color: var(--gold-2);
+      border-color: rgba(240,199,110,.6);
+    }
+    .faq-item.is-open .faq-q { color: var(--gold-2); }
+    .faq-a {
+      overflow: hidden;
+      transition: height .38s cubic-bezier(.16,1,.3,1);
+      will-change: height;
+    }
+    .faq-a-inner {
+      padding: 0 22px 20px;
+    }
+    .faq-a p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .26s ease, transform .32s cubic-bezier(.16,1,.3,1);
+    }
+    .faq-item.is-open .faq-a p {
+      opacity: 1;
+      transform: none;
+      transition-delay: .08s;
+    }
+    .faq-a p + p { margin-top: 10px; }
 
     /* ============================================================
        CTA BANNER
@@ -685,9 +740,16 @@
     .track-grid > .reveal:nth-child(2) { --i: 1; }
     .track-grid > .reveal:nth-child(3) { --i: 2; }
 
-    .faq-grid > .reveal:nth-child(1) { --i: 0; }
-    .faq-grid > .reveal:nth-child(2) { --i: 1; }
-    .faq-grid > .reveal:nth-child(3) { --i: 2; }
+    .faq-accordion > .reveal:nth-child(1) { --i: 0; }
+    .faq-accordion > .reveal:nth-child(2) { --i: 1; }
+    .faq-accordion > .reveal:nth-child(3) { --i: 2; }
+    .faq-accordion > .reveal:nth-child(4) { --i: 3; }
+    .faq-accordion > .reveal:nth-child(5) { --i: 4; }
+    .faq-accordion > .reveal:nth-child(6) { --i: 5; }
+    .faq-accordion > .reveal:nth-child(7) { --i: 6; }
+    .faq-accordion > .reveal:nth-child(8) { --i: 7; }
+    .faq-accordion > .reveal:nth-child(9) { --i: 8; }
+    .faq-accordion > .reveal:nth-child(10) { --i: 9; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -807,7 +869,9 @@
       .steps-grid::before { display: none; }
       .send-grid { grid-template-columns: repeat(2, 1fr); }
       .track-grid { grid-template-columns: 1fr; }
-      .faq-grid { grid-template-columns: 1fr; }
+      .faq-item summary { padding: 16px 18px; }
+      .faq-q { font-size: 16px; }
+      .faq-a { padding: 0 18px 18px; }
       .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
 
@@ -876,7 +940,7 @@
           <p class="lead reveal">Veja como é fácil trabalhar com a gente. Da solicitação à entrega, você acompanha cada etapa do processo com transparência total.</p>
         </div>
         <div class="page-hero-image">
-          <img loading="lazy" src="assets/images/hero/como-funciona-v2.jpeg" alt="Fluxo de trabalho do laboratório">
+          <img loading="eager" fetchpriority="high" src="assets/images/hero/como-funciona-v2.webp" alt="Fluxo de trabalho do laboratório">
         </div>
       </div>
     </section>
@@ -1030,46 +1094,133 @@
       </div>
     </section>
 
-    <!-- ============================ MINI FAQ ============================ -->
+    <!-- ============================ FAQ ACCORDION ============================ -->
     <section class="faq-section container">
       <div class="sec-head">
         <span class="sec-num">4.</span>
         <h2>Dúvidas frequentes <em>sobre o processo</em></h2>
       </div>
-      <div class="faq-grid">
+      <div class="faq-accordion">
 
-        <a class="faq-mini reveal" href="contato.html">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M3 9h18"/></svg>
-          </span>
-          <div>
-            <h3>Aceitam scan digital?</h3>
-            <span>Sim, todos os formatos abertos.</span>
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Quais materiais vocês trabalham?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Trabalhamos com zircônia monolítica e multilayer, dissilicato de lítio (IPS e.max), cerâmica feldspática pura, metalocerâmica e resina para próteses provisórias. Caso precise de algum material específico, entre em contato — buscamos atender necessidades pontuais.</p>
+            </div>
           </div>
-          <span class="arrow">→</span>
-        </a>
+        </details>
 
-        <a class="faq-mini reveal" href="contato.html">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
-          </span>
-          <div>
-            <h3>Atendem todo o Brasil?</h3>
-            <span>Transportadora para todo território.</span>
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Qual é o prazo médio de entrega?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>O prazo varia conforme o tipo de trabalho: coroas unitárias em zircônia ficam prontas em poucos dias úteis; pontes e casos mais complexos levam alguns dias a mais. Informamos o prazo exato na confirmação do pedido. Para casos urgentes, consulte disponibilidade.</p>
+            </div>
           </div>
-          <span class="arrow">→</span>
-        </a>
+        </details>
 
-        <a class="faq-mini reveal" href="contato.html">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 4l6 2.4v4.8c0 4-2.4 6.8-6 8.8-3.6-2-6-4.8-6-8.8V6.4L12 4z"/><path d="M9 12l2 2 4-4"/></svg>
-          </span>
-          <div>
-            <h3>Tem garantia em todos os trabalhos?</h3>
-            <span>Sim, retrabalho sem custo extra.</span>
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Vocês aceitam casos digitais (scan intraoral)?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Sim. Aceitamos arquivos nos formatos .STL, .OBJ e .PLY gerados por qualquer scanner intraoral do mercado (iTero, Trios, Cerec, Medit, entre outros). Também trabalhamos com modelos físicos de gesso, se preferir o fluxo convencional.</p>
+            </div>
           </div>
-          <span class="arrow">→</span>
-        </a>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Como é feito o envio físico do caso?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Você embala o modelo com as referências e a ficha de prescrição preenchida e envia via motoboy parceiro ou Sedex para o nosso endereço. Casos urgentes podem combinar retirada. A ficha de prescrição está disponível para download na seção Como Funciona.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Qual é a política de garantia?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Garantimos nossos trabalhos contra defeitos de fabricação. Caso a peça não apresente o encaixe correto ou tenha alguma inconformidade técnica comprovada, refazemos sem custo adicional, dentro do prazo de garantia previsto na confirmação do pedido.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Vocês atendem clínicas com alto volume de casos?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Sim, temos estrutura para atender clínicas com demanda contínua. Nesse perfil, podemos oferecer condições comerciais diferenciadas, prazo preferencial e um canal exclusivo de comunicação. Entre em contato para conversar sobre parceria.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Qual é o valor dos serviços?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Os preços variam conforme o tipo de trabalho, material e complexidade. Não temos tabela fixa pública porque cada caso é avaliado individualmente. Solicite um orçamento sem compromisso — retornamos em poucas horas úteis.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Vocês entregam em todo o Brasil?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Sim. Enviamos para todo o território nacional via transportadora especializada. Para a região de São Paulo, também oferecemos entrega própria com motoboy parceiro.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Como acompanho o status do meu pedido?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Após a confirmação do caso, você recebe atualizações em cada etapa pelo WhatsApp dedicado da clínica. Mensagens diretas, sem ruído, com previsibilidade do andamento até a entrega.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span class="faq-q">Posso visitar o laboratório?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Sim, dentistas parceiros são bem-vindos. Agende uma visita pelo WhatsApp e venha conhecer nossa estrutura, equipe e fluxo digital pessoalmente.</p>
+            </div>
+          </div>
+        </details>
 
       </div>
     </section>
@@ -1101,7 +1252,7 @@
         <p>Excelência em prótese dental com tecnologia, precisão e compromisso com os resultados.</p>
       </div>
       <div><h4>Navegação</h4><ul><li><a href="index.html">Início</a></li><li><a href="servicos.html">Serviços</a></li><li><a href="como-funciona.html">Como funciona</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="tecnologia.html">Tecnologia</a></li><li><a href="contato.html">Contato</a></li></ul></div>
-      <div><h4>Serviços</h4><ul><li><a href="servicos.html">Prótese Fixa</a></li><li><a href="servicos.html">Sobre Implante</a></li><li><a href="servicos.html">Total / Parcial</a></li><li><a href="servicos.html">Ortopedia</a></li></ul></div>
+      <div><h4>Serviços</h4><ul><li><a href="servicos.html">Prótese Fixa</a></li><li><a href="servicos.html">Sobre Implante</a></li><li><a href="servicos.html">Total / Parcial</a></li></ul></div>
       <div><h4>Tecnologia</h4><ul><li><a href="tecnologia.html">Fluxo digital</a></li><li><a href="tecnologia.html">CAD/CAM</a></li><li><a href="tecnologia.html">Materiais premium</a></li><li><a href="tecnologia.html">Padrão de qualidade</a></li></ul></div>
       <div><h4>Contato</h4><ul><li><a href="tel:+5511999009090">(11) 99900-9090</a></li><li><a href="mailto:contato@ateliedental.com.br">contato@ateliedental.com.br</a></li><li><a href="https://www.google.com/maps/search/?api=1&amp;query=Rua+das+Orqu%C3%ADdeas%2C+123%2C+S%C3%A3o+Paulo%2C+SP" target="_blank" rel="noopener">Rua das Orquídeas, 123</a></li><li>São Paulo/SP</li></ul></div>
     </div>
@@ -1164,6 +1315,74 @@
       d.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ set(false); }); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape') set(false); });
       window.addEventListener('resize', function(){ if (window.innerWidth > 1100) set(false); });
+    })();
+
+    /* ============ FAQ ACCORDION (smooth open/close) ============ */
+    (function(){
+      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var items = document.querySelectorAll('.faq-item');
+      items.forEach(function(item){
+        var summary = item.querySelector('summary');
+        var content = item.querySelector('.faq-a');
+        if (!summary || !content) return;
+
+        summary.addEventListener('click', function(e){
+          e.preventDefault();
+          if (item.dataset.busy === '1') return;
+
+          var isOpen = item.hasAttribute('open');
+
+          if (prefersReduced) {
+            if (isOpen) {
+              item.removeAttribute('open');
+              item.classList.remove('is-open');
+            } else {
+              item.setAttribute('open', '');
+              item.classList.add('is-open');
+            }
+            return;
+          }
+
+          item.dataset.busy = '1';
+
+          if (!isOpen) {
+            // OPEN: render content, measure target, animate from 0 to target
+            item.setAttribute('open', '');
+            item.classList.add('is-open');
+            var target = content.scrollHeight;
+            content.style.height = '0px';
+            // Force layout
+            content.offsetHeight;
+            requestAnimationFrame(function(){
+              content.style.height = target + 'px';
+            });
+            var onOpenEnd = function(ev){
+              if (ev.propertyName !== 'height') return;
+              content.style.height = '';
+              content.removeEventListener('transitionend', onOpenEnd);
+              item.dataset.busy = '0';
+            };
+            content.addEventListener('transitionend', onOpenEnd);
+          } else {
+            // CLOSE: animate from current height to 0, then remove [open]
+            var current = content.offsetHeight;
+            content.style.height = current + 'px';
+            content.offsetHeight; // reflow
+            item.classList.remove('is-open');
+            requestAnimationFrame(function(){
+              content.style.height = '0px';
+            });
+            var onCloseEnd = function(ev){
+              if (ev.propertyName !== 'height') return;
+              item.removeAttribute('open');
+              content.style.height = '';
+              content.removeEventListener('transitionend', onCloseEnd);
+              item.dataset.busy = '0';
+            };
+            content.addEventListener('transitionend', onCloseEnd);
+          }
+        });
+      });
     })();
   </script>
 

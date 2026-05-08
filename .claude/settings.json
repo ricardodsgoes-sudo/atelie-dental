@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -m http.server 8765)"
+      "Bash(python -m http.server 8765)",
+      "Bash(where magick *)",
+      "Bash(where cwebp *)",
+      "Bash(where ffmpeg *)",
+      "Bash(curl -sI \"http://localhost:8765/assets/favicon.svg\")",
+      "Bash(curl -sI \"http://localhost:8765/assets/images/og-image.jpg\")",
+      "Bash(curl -sI \"http://localhost:8765/assets/images/hero/sorriso-hero.webp\")",
+      "Bash(curl -v \"http://localhost:8765/assets/favicon.svg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8765/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8765/assets/favicon.svg\")"
     ]
   }
 }
