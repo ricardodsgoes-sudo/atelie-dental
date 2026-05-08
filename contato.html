@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contato | Ateliê Dental</title>
+  <meta name="description" content="Solicite orçamento, fale pelo WhatsApp ou agende uma visita ao Ateliê Dental." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: #090909;
+      --panel-2: #0d0d0c;
+      --ink: #f6f0e5;
+      --muted: #bdb5a6;
+      --soft: #746d61;
+      --gold: #d6a94f;
+      --gold-2: #f0c76e;
+      --line: rgba(214, 169, 79, .32);
+      --line-soft: rgba(246, 240, 229, .08);
+      --success: #25d366;
+      --container: 1320px;
+      --pad: 28px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 78% 8%, rgba(214,169,79,.10), transparent 30%),
+        radial-gradient(circle at 22% 26%, rgba(214,169,79,.08), transparent 26%),
+        var(--bg);
+      font-family: "Manrope", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    :focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+      z-index: -1;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    p, h1, h2, h3 { overflow-wrap: break-word; }
+
+    .container { width: min(var(--container), calc(100% - var(--pad) * 2)); margin: 0 auto; }
+    .display { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 42px;
+      padding: 12px 24px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+      touch-action: manipulation;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: var(--gold); }
+    .btn:active { transform: translateY(0) scale(.98); }
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: -2px auto -2px -45%;
+      width: 42%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
+      transform: skewX(-18deg);
+      transition: left .55s ease;
+      pointer-events: none;
+    }
+    .btn:hover::after { left: 115%; }
+    .btn span { transition: transform .22s ease; }
+    .btn:hover span { transform: translateX(4px); }
+    .btn-primary {
+      color: #12100b;
+      border-color: transparent;
+      background: linear-gradient(135deg, #f6d887 0%, #c58b2a 100%);
+      box-shadow: 0 16px 34px rgba(214, 169, 79, .22);
+    }
+    .btn-wa {
+      background: var(--success);
+      color: #062e16;
+      border-color: transparent;
+    }
+    .btn-wa:hover {
+      background: #1faf57;
+      color: #062e16;
+      border-color: transparent;
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      color: var(--gold);
+      flex: 0 0 auto;
+      position: relative;
+    }
+    .icon svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* NAVBAR IGUAL AS OUTRAS PAGINAS */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: rgba(3,3,3,.86);
+      border-bottom: 1px solid rgba(214,169,79,.22);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      height: 62px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 34px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 250px; }
+    .brand-mark { width: 44px; height: 44px; color: var(--gold-2); }
+    .brand-name {
+      display: grid;
+      gap: 2px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      font-size: 17px;
+      text-transform: uppercase;
+    }
+    .brand-name small { color: var(--muted); font-size: 7px; letter-spacing: .26em; }
+    .nav-links { display: flex; justify-content: center; gap: 34px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a {
+      position: relative;
+      color: #e7dfd1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .nav-links a.active,
+    .nav-links a:hover { color: var(--gold-2); }
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -14px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 400px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.88) 40%, rgba(5,5,5,.32) 70%, rgba(5,5,5,.06) 100%),
+        url("assets/images/contato/contato-hero.png") right center / 80% auto no-repeat;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 48% 50%, rgba(214,169,79,.15), transparent 26%),
+        linear-gradient(90deg, rgba(5,5,5,.20), transparent 56%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    .hero-copy { max-width: 550px; padding: 34px 0 16px; }
+    .hero h1 {
+      margin: 10px 0 16px;
+      font-size: clamp(42px, 5vw, 68px);
+    }
+    .hero p {
+      margin: 0 0 24px;
+      max-width: 505px;
+      width: 100%;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* FORM + CONTACT CARDS */
+    .contact-main { padding: 26px 0 22px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.42fr .9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), transparent 45%),
+        rgba(10,10,9,.78);
+      transition:
+        transform .26s cubic-bezier(.16, 1, .3, 1),
+        border-color .26s ease,
+        box-shadow .26s ease,
+        background .26s ease;
+    }
+    .form-panel { padding: 22px 28px 16px; }
+    .form-panel:focus-within {
+      border-color: rgba(240,199,110,.58);
+      box-shadow: 0 18px 42px rgba(0,0,0,.24), 0 0 0 1px rgba(240,199,110,.08);
+      background:
+        radial-gradient(circle at 16% 0%, rgba(214,169,79,.10), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,.045), transparent 45%),
+        rgba(10,10,9,.82);
+    }
+    .form-panel h2,
+    .why-copy h2,
+    .visit h2 {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 600;
+      letter-spacing: -.025em;
+      line-height: 1;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr .72fr;
+      gap: 14px 22px;
+    }
+    .field { position: relative; }
+    .field.full { grid-column: 1 / -1; }
+    label {
+      display: block;
+      color: #ece3d4;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      transform-origin: left center;
+      transition: color .2s ease, transform .2s ease;
+    }
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(214,169,79,.50);
+      border-radius: 4px;
+      background: rgba(4,4,4,.72);
+      color: var(--ink);
+      padding: 11px 13px;
+      font-size: 12px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease, transform .2s ease;
+    }
+    textarea { resize: vertical; min-height: 56px; }
+    input:hover, textarea:hover {
+      border-color: rgba(240,199,110,.72);
+      background: rgba(6,6,6,.82);
+    }
+    input:focus, textarea:focus {
+      border-color: var(--gold-2);
+      box-shadow: 0 0 0 3px rgba(214,169,79,.12);
+      transform: translateY(-1px);
+    }
+    input:focus::placeholder,
+    textarea:focus::placeholder { opacity: .45; }
+    .field:focus-within label,
+    .field.has-value label {
+      color: var(--gold-2);
+      transform: translateY(-1px);
+    }
+    .form-panel .btn { width: 100%; margin-top: 12px; min-height: 44px; }
+    .form-feedback {
+      min-height: 18px;
+      margin: 9px 0 0;
+      color: var(--gold-2);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity .24s ease, transform .24s ease, color .24s ease;
+    }
+    .form-feedback.show { opacity: 1; transform: none; }
+    .form-feedback.error { color: #ffda8c; }
+    .form-panel.is-shaking { animation: contactShake .38s ease; }
+    .form-panel.is-sent {
+      border-color: rgba(16,185,129,.48);
+      box-shadow: 0 18px 42px rgba(0,0,0,.24), 0 0 28px rgba(16,185,129,.18);
+    }
+    .btn.is-success,
+    .btn-primary.is-success {
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%) !important;
+      color: #03251a !important;
+      border-color: transparent !important;
+      box-shadow: 0 16px 34px rgba(5,150,105,.34) !important;
+    }
+    .form-feedback.success { color: #6ee7b7; }
+    .field.invalid input,
+    .field.invalid textarea {
+      border-color: #ff7a7a;
+      box-shadow: 0 0 0 3px rgba(255, 122, 122, .14);
+    }
+    .field.invalid label { color: #ff9b9b; }
+    @keyframes contactShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    .contact-side { display: grid; gap: 8px; }
+    .info-card {
+      min-height: 92px;
+      padding: 15px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .info-card:hover,
+    .visit:hover {
+      transform: translateY(-3px);
+      border-color: rgba(240,199,110,.54);
+      box-shadow: 0 14px 30px rgba(0,0,0,.26);
+    }
+    .info-card h3 {
+      margin: 0 0 4px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 600;
+    }
+    .info-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    /* STATS */
+    .stats {
+      margin: 0 auto 20px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: rgba(9,9,8,.72);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat {
+      min-height: 74px;
+      padding: 14px 26px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+      border-right: 1px solid rgba(214,169,79,.24);
+      transition: background .22s ease, transform .22s ease;
+    }
+    .stat:hover {
+      background: rgba(214,169,79,.045);
+      transform: translateY(-2px);
+    }
+    .stat:last-child { border-right: none; }
+    .stat strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: var(--ink);
+      font-size: 28px;
+      line-height: .92;
+      font-weight: 600;
+    }
+    .stat span { color: var(--muted); font-size: 12px; line-height: 1.1; }
+
+    /* WHY */
+    .why {
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: .75fr 1fr;
+      min-height: 242px;
+      overflow: hidden;
+    }
+    .why-copy {
+      padding: 24px 34px;
+      background: rgba(6,6,6,.82);
+    }
+    .why-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 26px;
+      margin-top: 16px;
+    }
+    .why-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      transition: transform .22s ease;
+    }
+    .why-item:hover { transform: translateX(4px); }
+    .why-item .icon { width: 34px; height: 34px; }
+    .why-item .icon svg { width: 18px; height: 18px; }
+    .why-item strong { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; line-height: 1; margin-bottom: 4px; }
+    .why-item span { display: block; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .why-photo {
+      min-height: 240px;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.15), transparent),
+        url("assets/images/contato/fala-com-equipe.png") center top / 85% auto no-repeat,
+        #0a0a09;
+      border-left: 1px solid rgba(214,169,79,.22);
+    }
+
+    /* MAP + VISIT */
+    .map-visit {
+      display: grid;
+      grid-template-columns: 1.1fr .85fr;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .map {
+      min-height: 168px;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      background: #0b0b0a;
+    }
+    .map iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      border: 0;
+      filter: grayscale(.35) contrast(1.05) brightness(.92);
+      transition: filter .3s ease;
+    }
+    .map:hover iframe { filter: grayscale(0) contrast(1) brightness(1); }
+    .visit { padding: 34px 38px; display: flex; flex-direction: column; justify-content: center; }
+    .visit p { margin: 0 0 18px; color: var(--muted); font-size: 13px; max-width: 420px; }
+
+    /* CTA */
+    .cta {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.24), #080807 34%, #080807 100%),
+        url("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=80") left center / 390px auto no-repeat;
+    }
+    .cta-inner {
+      min-height: 106px;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 18px;
+      align-items: center;
+      padding: 22px 0;
+    }
+    .cta h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .cta p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    /* FOOTER IGUAL AS OUTRAS PAGINAS */
+    .footer { padding: 12px 0 18px; background: #050505; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 32px;
+      color: #b9b0a1;
+      font-size: 11px;
+    }
+    .footer h4 {
+      color: #f4ead9;
+      margin: 0 0 8px;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+    .footer .brand { min-width: 0; margin-bottom: 8px; }
+    .footer p { color: #978c7d; font-size: 11px; line-height: 1.5; margin: 8px 0 0; max-width: 280px; }
+    .copyright {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line-soft);
+      text-align: center;
+      color: #6f675c;
+      font-size: 10px;
+    }
+    .whatsapp {
+      position: fixed;
+      right: 22px; bottom: 22px;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--success);
+      color: white;
+      box-shadow: 0 14px 34px rgba(37,211,102,.35);
+      z-index: 70;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .whatsapp:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 18px 42px rgba(37,211,102,.42); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .72s cubic-bezier(.16, 1, .3, 1), transform .72s cubic-bezier(.16, 1, .3, 1);
+      transition-delay: calc(var(--i, 0) * 65ms);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .hero .reveal { animation: heroIn .58s cubic-bezier(.16, 1, .3, 1) both; transition: none; }
+    @keyframes heroIn { from { opacity: .62; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+    }
+    /* ============ MOBILE NAV (HAMBURGER) ============ */
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(0,0,0,.4);
+      cursor: pointer;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .nav-toggle:hover { border-color: var(--gold); background: rgba(214,169,79,.08); }
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      margin: 2.5px auto;
+      background: var(--gold-2);
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      inset: 62px 0 0 0;
+      background: rgba(5,5,5,.97);
+      backdrop-filter: blur(20px);
+      z-index: 75;
+      transform: translateY(-110%);
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+      overflow-y: auto;
+    }
+    .mobile-drawer.open { transform: none; }
+    .mobile-drawer ul { list-style: none; margin: 0; padding: 14px var(--pad) 32px; display: grid; }
+    .mobile-drawer a {
+      display: flex;
+      align-items: center;
+      min-height: 56px;
+      padding: 16px 8px;
+      border-bottom: 1px solid rgba(214,169,79,.15);
+      color: #e7dfd1;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .mobile-drawer a:hover, .mobile-drawer a.active { color: var(--gold-2); }
+    .mobile-drawer .mobile-cta {
+      margin-top: 18px;
+      background: linear-gradient(135deg, #f6d887 0%, #c58b2a 100%);
+      color: #12100b;
+      border: 0;
+      border-radius: 4px;
+      justify-content: center;
+      letter-spacing: .12em;
+      font-weight: 800;
+    }
+
+    @media (max-width: 1100px) {
+      .nav { grid-template-columns: auto 1fr auto; }
+      .nav-links { display: none; }
+      .nav-cta { display: none !important; }
+      .nav-toggle { display: inline-flex; }
+      .mobile-drawer { display: block; }
+      .contact-grid, .why, .map-visit { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid rgba(214,169,79,.24); }
+      .cta-inner { grid-template-columns: 1fr; }
+      .cta-inner .btn { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      :root { --pad: 18px; }
+      .brand { min-width: 0; }
+      .brand-name { font-size: 13px; }
+      .nav .btn { display: none; }
+      .hero { background-size: cover; background-position: center; }
+      .hero { height: auto; }
+      .hero::before { background: rgba(5,5,5,.64); }
+      .hero-inner { min-height: auto; }
+      .hero-copy { padding: 38px 0; }
+      .hero p { max-width: 340px; }
+      .form-grid, .stats, .why-list { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid rgba(214,169,79,.24); }
+      .stat:last-child { border-bottom: none; }
+      .why-copy, .visit, .form-panel { padding: 24px 20px; }
+      .cta { background-position: left top; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Navegação principal">
+      <a href="index.html" class="brand" aria-label="Ateliê Dental">
+        <svg class="brand-mark" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+          <path d="M28 8c-8.8 0-15 5-15 12.7 0 5.1 1.3 8.8 2.5 15.1 1.2 6.2 1.3 10 1.3 14.9 0 2.6 1.3 5.1 3.9 5.1 2.8 0 4-2.5 5.2-7.7 1.2-5.1 1.4-7.6 2.1-7.6.8 0 1 2.5 2.2 7.6 1.2 5.2 2.4 7.7 5.1 7.7 2.7 0 4-2.5 4-5.1 0-4.9 0-8.7 1.2-14.9 1.2-6.3 2.5-10 2.5-15.1C43 13 36.8 8 28 8Z" stroke="currentColor" stroke-width="2.3"/>
+        </svg>
+        <span class="brand-name">Ateliê Dental <small>Laboratório de próteses</small></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="como-funciona.html">Como funciona</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="tecnologia.html">Tecnologia</a></li>
+        <li><a class="active" href="contato.html">Contato</a></li>
+      </ul>
+      <a class="btn nav-cta" href="#orcamento">Solicitar orçamento <span>→</span></a>
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+  <aside id="mobile-nav" class="mobile-drawer" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="servicos.html">Serviços</a></li>
+      <li><a href="como-funciona.html">Como funciona</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="tecnologia.html">Tecnologia</a></li>
+      <li><a class="active" href="contato.html">Contato</a></li>
+      <li><a class="mobile-cta" href="#orcamento">Solicitar orçamento →</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow reveal">Contato</span>
+          <h1 class="display reveal">Vamos começar<br>uma parceria?</h1>
+          <p class="reveal">Preencha o formulário abaixo ou fale diretamente pelo WhatsApp. Retornamos em até 24 horas úteis.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container contact-main" id="orcamento">
+      <div class="contact-grid">
+        <form class="panel form-panel reveal" id="orcamento-form" novalidate>
+          <h2>Formulário de Orçamento</h2>
+          <div class="form-grid">
+            <div class="field"><label for="nome">Nome completo *</label><input id="nome" name="nome" placeholder="Digite seu nome completo" required autocomplete="name"></div>
+            <div class="field"><label for="cro">CRO (opcional)</label><input id="cro" name="cro" placeholder="Ex.: 12345/SP" autocomplete="off"></div>
+            <div class="field"><label for="email">E-mail *</label><input id="email" name="email" type="email" placeholder="seu@email.com.br" required autocomplete="email"></div>
+            <div class="field"><label for="whatsapp">WhatsApp *</label><input id="whatsapp" name="whatsapp" type="tel" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric" maxlength="15"></div>
+            <div class="field full"><label for="cidade">Cidade / Estado *</label><input id="cidade" name="cidade" placeholder="Ex.: São Paulo / SP" required autocomplete="address-level2"></div>
+            <div class="field full"><label for="descricao">Descrição do caso ou serviço de interesse *</label><textarea id="descricao" name="descricao" placeholder="Descreva o caso, materiais de interesse, prazos desejados ou qualquer informação relevante para o orçamento." required></textarea></div>
+          </div>
+          <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+          <button class="btn btn-primary" type="submit">Solicitar orçamento <span>→</span></button>
+        </form>
+
+        <aside class="contact-side">
+          <div class="panel info-card reveal">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 01-1 4 8.5 8.5 0 01-7.5 4.5 8.4 8.4 0 01-4-1L3 21l2-5.5a8.4 8.4 0 01-1-4A8.5 8.5 0 0112.5 3 8.4 8.4 0 0121 11.5z"/></svg></span>
+            <div><h3>Contato Direto</h3><p>WhatsApp<br>(11) 99900-9090<br>E-mail<br>contato@ateliedental.com.br</p></div>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <div><h3>Atendimento</h3><p>Segunda a Sexta, das 8h às 18h</p></div>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.1 7-11a7 7 0 10-14 0c0 5.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <div><h3>Endereço</h3><p>Rua das Orquídeas, 123<br>Sala 04 - São Paulo/SP</p></div>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M4.5 8h10v7h-10z"/><path d="M14.5 10h3l2 2.6V15h-5z"/><circle cx="8" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/></svg></span>
+            <div><h3>Entrega</h3><p>Todo o Brasil via transportadora<br>São Paulo e região: motoboy parceiro</p></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container stats reveal">
+      <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 4l6 2.4v4.8c0 4-2.4 6.8-6 8.8-3.6-2-6-4.8-6-8.8V6.4L12 4z"/><path d="M9 12l2 2 4-4"/></svg></span><div><strong>+5 anos</strong><span>de experiência</span></div></div>
+      <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M16 19v-2a4 4 0 00-8 0v2"/><circle cx="12" cy="8" r="3"/><path d="M21 19v-2a4 4 0 00-3-3.87M3 19v-2a4 4 0 013-3.87"/></svg></span><div><strong>+350</strong><span>clínicas parceiras</span></div></div>
+      <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 4 6 7c0 2 .5 3.5 1 6 .5 2.5.5 4 .5 6 0 1 .5 2 1.5 2s1.5-1 2-3 .5-3 1-3 .5 1 1 3 1 3 2 3 1.5-1 1.5-2c0-2 0-3.5.5-6 .5-2.5 1-4 1-6 0-3-2.5-5-6-5z"/></svg></span><div><strong>+8.500</strong><span>casos entregues</span></div></div>
+      <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><strong>100%</strong><span>fluxo digital CAD/CAM</span></div></div>
+    </section>
+
+    <section class="container panel why reveal">
+      <div class="why-copy">
+        <h2>Por que falar com a nossa equipe?</h2>
+        <div class="why-list">
+          <div class="why-item"><span class="icon"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><path d="M12 3l7 4v5c0 4-2.8 7.2-7 9-4.2-1.8-7-5-7-9V7l7-4z"/></svg></span><div><strong>Atendimento consultivo</strong><span>Entendemos o caso e orientamos a melhor solução técnica.</span></div></div>
+          <div class="why-item"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></span><div><strong>Resposta ágil</strong><span>Retorno rápido para orçamento e definição do fluxo.</span></div></div>
+          <div class="why-item"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4.5 8h10v7h-10z"/><path d="M14.5 10h3l2 2.6V15h-5z"/><circle cx="8" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/></svg></span><div><strong>Parceria de longo prazo</strong><span>Estrutura para atender dentistas e clínicas com constância.</span></div></div>
+          <div class="why-item"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M6 6l1.4 1.4M16.6 16.6L18 18"/></svg></span><div><strong>Suporte técnico</strong><span>Acompanhamento próximo do início à entrega.</span></div></div>
+        </div>
+      </div>
+      <div class="why-photo" aria-hidden="true"></div>
+    </section>
+
+    <section class="container map-visit">
+      <div class="panel map reveal" aria-label="Mapa do laboratório em São Paulo">
+        <iframe
+          src="https://www.google.com/maps?q=S%C3%A3o+Paulo%2C+SP%2C+Brasil&z=12&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização do laboratório em São Paulo"
+          allowfullscreen></iframe>
+      </div>
+      <div class="panel visit reveal">
+        <h2>Visite nosso laboratório</h2>
+        <p>Agende uma visita pelo WhatsApp e venha conhecer nossa estrutura pessoalmente.</p>
+        <a class="btn" href="https://wa.me/" target="_blank" rel="noopener">Agendar visita <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="cta" id="contato">
+      <div class="container cta-inner">
+        <div>
+          <h2>Pronto para enviar seu primeiro caso?</h2>
+          <p>Solicite um orçamento agora e receba retorno da nossa equipe técnica.</p>
+        </div>
+        <a class="btn btn-primary" href="#orcamento">Solicitar orçamento <span>→</span></a>
+        <a class="btn btn-wa" href="https://wa.me/" target="_blank" rel="noopener">Chamar no WhatsApp <span>→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+            <path d="M28 8c-8.8 0-15 5-15 12.7 0 5.1 1.3 8.8 2.5 15.1 1.2 6.2 1.3 10 1.3 14.9 0 2.6 1.3 5.1 3.9 5.1 2.8 0 4-2.5 5.2-7.7 1.2-5.1 1.4-7.6 2.1-7.6.8 0 1 2.5 2.2 7.6 1.2 5.2 2.4 7.7 5.1 7.7 2.7 0 4-2.5 4-5.1 0-4.9 0-8.7 1.2-14.9 1.2-6.3 2.5-10 2.5-15.1C43 13 36.8 8 28 8Z" stroke="currentColor" stroke-width="2.3"/>
+          </svg>
+          <span class="brand-name">Ateliê Dental <small>Laboratório de próteses</small></span>
+        </div>
+        <p>Excelência em prótese dental com tecnologia, precisão e compromisso com os resultados.</p>
+      </div>
+      <div><h4>Navegação</h4><ul><li><a href="index.html">Início</a></li><li><a href="servicos.html">Serviços</a></li><li><a href="como-funciona.html">Como funciona</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="tecnologia.html">Tecnologia</a></li></ul></div>
+      <div><h4>Serviços</h4><ul><li>Prótese Fixa</li><li>Sobre Implante</li><li>Total / Parcial</li><li>Ortopedia</li></ul></div>
+      <div><h4>Tecnologia</h4><ul><li>Fluxo digital</li><li>CAD/CAM</li><li>Materiais premium</li><li>Padrão de qualidade</li></ul></div>
+      <div><h4>Contato</h4><ul><li>(11) 99900-9090</li><li>contato@ateliedental.com.br</li><li>Rua das Orquídeas, 123</li><li>São Paulo/SP</li></ul></div>
+    </div>
+    <div class="container copyright">© 2026 Ateliê Dental Laboratório de Próteses. Todos os direitos reservados.</div>
+  </footer>
+
+  <a class="whatsapp" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+    <svg width="27" height="27" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+    </svg>
+  </a>
+
+  <script>
+    (function() {
+      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('in'); });
+      } else {
+        document.querySelectorAll('.hero .reveal').forEach(function(el) { el.classList.add('in'); });
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        els.forEach(function(el) { if (!el.closest('.hero')) io.observe(el); });
+        setTimeout(function() {
+          els.forEach(function(el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 1.08 && rect.bottom > -80) el.classList.add('in');
+          });
+        }, 420);
+      }
+    })();
+
+    /* ============ HAMBURGER MENU ============ */
+    (function(){
+      var t = document.querySelector('.nav-toggle');
+      var d = document.getElementById('mobile-nav');
+      if (!t || !d) return;
+      function set(open){
+        t.setAttribute('aria-expanded', open);
+        d.classList.toggle('open', open);
+        d.setAttribute('aria-hidden', !open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        t.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      }
+      t.addEventListener('click', function(){ set(t.getAttribute('aria-expanded') !== 'true'); });
+      d.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ set(false); }); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') set(false); });
+      window.addEventListener('resize', function(){ if (window.innerWidth > 1100) set(false); });
+    })();
+
+    /* Máscara WhatsApp: aceita só dígitos, máx. 11, formata (XX) XXXXX-XXXX */
+    (function() {
+      var wa = document.getElementById('whatsapp');
+      if (!wa) return;
+      function maskPhone(value) {
+        var d = value.replace(/\D/g, '').slice(0, 11);
+        if (!d) return '';
+        if (d.length <= 2)  return '(' + d;
+        if (d.length <= 6)  return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+        if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+        return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+      }
+      wa.addEventListener('input', function(e) {
+        var pos = e.target.selectionStart;
+        var beforeLen = e.target.value.length;
+        e.target.value = maskPhone(e.target.value);
+        var afterLen = e.target.value.length;
+        try { e.target.setSelectionRange(pos + (afterLen - beforeLen), pos + (afterLen - beforeLen)); } catch (_) {}
+      });
+      wa.addEventListener('keydown', function(e) {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        var allowed = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','Enter'];
+        if (allowed.indexOf(e.key) !== -1) return;
+        if (!/^\d$/.test(e.key)) e.preventDefault();
+      });
+      wa.addEventListener('paste', function(e) {
+        e.preventDefault();
+        var text = (e.clipboardData || window.clipboardData).getData('text');
+        wa.value = maskPhone(text);
+        wa.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    })();
+
+    /* Validação e submit do formulário */
+    (function() {
+      var form = document.getElementById('orcamento-form');
+      if (!form) return;
+      var feedback = document.getElementById('form-feedback');
+      var requiredIds = ['nome','email','whatsapp','cidade','descricao'];
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      form.querySelectorAll('input, textarea').forEach(function(input) {
+        input.addEventListener('blur', function() {
+          var fieldEl = input.closest('.field');
+          if (input.value.trim()) fieldEl.classList.add('has-value');
+          else fieldEl.classList.remove('has-value');
+        });
+        input.addEventListener('input', function() {
+          var fieldEl = input.closest('.field');
+          if (fieldEl) fieldEl.classList.remove('invalid');
+        });
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var firstInvalid = null;
+
+        requiredIds.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          var fieldEl = el.closest('.field');
+          var val = el.value.trim();
+          var ok = val.length > 0;
+
+          if (id === 'email')    ok = ok && emailRe.test(val);
+          if (id === 'whatsapp') {
+            var digits = val.replace(/\D/g, '');
+            ok = ok && (digits.length === 10 || digits.length === 11);
+          }
+
+          if (ok) {
+            fieldEl.classList.remove('invalid');
+          } else {
+            fieldEl.classList.add('invalid');
+            if (!firstInvalid) firstInvalid = el;
+          }
+        });
+
+        if (firstInvalid) {
+          form.classList.remove('is-shaking');
+          void form.offsetWidth;
+          form.classList.add('is-shaking');
+          setTimeout(function() { form.classList.remove('is-shaking'); }, 420);
+          if (feedback) {
+            feedback.textContent = 'Preencha todos os campos obrigatórios corretamente.';
+            feedback.classList.add('show', 'error');
+          }
+          firstInvalid.focus();
+          return;
+        }
+
+        form.classList.add('is-sent');
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var originalLabel = null;
+        if (submitBtn) {
+          submitBtn.classList.add('is-success');
+          var labelSpan = submitBtn.querySelector('span');
+          originalLabel = { html: submitBtn.innerHTML };
+          submitBtn.innerHTML = 'Enviado <span aria-hidden="true">✓</span>';
+        }
+        if (feedback) {
+          feedback.textContent = 'Enviado com sucesso, retornaremos em 24h.';
+          feedback.classList.remove('error');
+          feedback.classList.add('show', 'success');
+        }
+        form.reset();
+        form.querySelectorAll('.field').forEach(function(f) { f.classList.remove('has-value','invalid'); });
+        setTimeout(function() {
+          form.classList.remove('is-sent');
+          if (feedback) feedback.classList.remove('show', 'success');
+          if (submitBtn) {
+            submitBtn.classList.remove('is-success');
+            if (originalLabel) submitBtn.innerHTML = originalLabel.html;
+          }
+        }, 5200);
+      });
+    })();
+  </script>
+</body>
+</html>

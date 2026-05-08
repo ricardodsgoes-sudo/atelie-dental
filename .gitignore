@@ -1,0 +1,21 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Internal / build artifacts
+.agent.md
+node_modules/
+dist/
+build/
+
+# Design references (não deploy)
+docs/references/raw/
+docs/references/checks/
+
+# Logs e temporários
+*.log
+*.tmp

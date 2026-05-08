@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serviços | Ateliê Dental</title>
+  <meta name="description" content="Prótese fixa, sobre implante, total/parcial e ortopedia. Soluções protéticas com tecnologia CAD/CAM e materiais premium." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       SHARED TOKENS / BASE (same as index.html)
+       ============================================================ */
+    :root {
+      --bg: #050505;
+      --panel: #090909;
+      --panel-2: #0d0d0c;
+      --ink: #f6f0e5;
+      --muted: #bdb5a6;
+      --soft: #746d61;
+      --gold: #d6a94f;
+      --gold-2: #f0c76e;
+      --gold-dark: #8a6425;
+      --line: rgba(214, 169, 79, .32);
+      --line-soft: rgba(246, 240, 229, .08);
+      --success: #25d366;
+      --container: 1320px;
+      --pad: 28px;
+      --hero-height: 400px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 8%, rgba(214,169,79,.10), transparent 30%),
+        radial-gradient(circle at 22% 26%, rgba(214,169,79,.08), transparent 26%),
+        var(--bg);
+      font-family: "Manrope", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+    :focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+      z-index: -1;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .container { width: min(var(--container), calc(100% - var(--pad) * 2)); margin: 0 auto; }
+    .display {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .gold-line { width: 42px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 42px;
+      padding: 12px 24px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+      touch-action: manipulation;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: var(--gold); }
+    .btn:active { transform: translateY(0) scale(.98); }
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: -2px auto -2px -45%;
+      width: 42%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
+      transform: skewX(-18deg);
+      transition: left .55s ease;
+      pointer-events: none;
+    }
+    .btn:hover::after { left: 115%; }
+    .btn span { transition: transform .22s ease; }
+    .btn:hover span { transform: translateX(4px); }
+    .btn-primary {
+      color: #12100b;
+      border-color: transparent;
+      background: linear-gradient(135deg, #f6d887 0%, #c58b2a 100%);
+      box-shadow: 0 16px 34px rgba(214, 169, 79, .22);
+    }
+    .btn-primary:hover { color: #090704; }
+    .btn-wa {
+      background: var(--success);
+      color: #062e16;
+      border-color: transparent;
+    }
+    .btn-wa:hover { background: #1faf57; color: #062e16; border-color: transparent; }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      color: var(--gold);
+      flex: 0 0 auto;
+      position: relative;
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), border-color .22s ease, color .22s ease, box-shadow .22s ease;
+    }
+    .icon svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .pillar:hover .icon {
+      transform: translateY(-2px) rotate(-8deg) scale(1.06);
+      color: var(--gold-2);
+      border-color: rgba(240,199,110,.82);
+      box-shadow: 0 0 24px rgba(214,169,79,.18);
+    }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: rgba(3,3,3,.86);
+      border-bottom: 1px solid rgba(214,169,79,.22);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      height: 62px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 34px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 250px;
+    }
+    .brand-mark { width: 44px; height: 44px; color: var(--gold-2); }
+    .brand-name {
+      display: grid;
+      gap: 2px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      font-size: 17px;
+      text-transform: uppercase;
+    }
+    .brand-name small {
+      color: var(--muted);
+      font-size: 7px;
+      letter-spacing: .26em;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 34px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      position: relative;
+      color: #e7dfd1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .nav-links a.active,
+    .nav-links a:hover { color: var(--gold-2); }
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -14px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ============================================================
+       PAGE HERO (compact)
+       ============================================================ */
+    .page-hero {
+      position: relative;
+      height: var(--hero-height);
+      padding: 0;
+      border-bottom: 1px solid rgba(214,169,79,.18);
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, #050505 0%, rgba(5,5,5,.92) 30%, rgba(5,5,5,.45) 54%, rgba(5,5,5,.10) 72%, transparent 100%),
+        url("assets/images/hero/servicos.png") right 45% / 84% auto no-repeat;
+    }
+    .page-hero::before {
+      content: none;
+    }
+    .page-hero-inner {
+      position: relative;
+      max-width: var(--container);
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 34px;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-bottom: 18px;
+    }
+    .breadcrumb a { color: var(--muted); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--gold-2); }
+    .breadcrumb .sep { color: rgba(214,169,79,.5); }
+    .breadcrumb .current { color: var(--gold); }
+
+    .page-hero h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(44px, 4.8vw, 66px);
+      letter-spacing: -.025em;
+      line-height: 1.02;
+      margin: 10px 0 18px;
+      color: #fff8eb;
+      max-width: 760px;
+    }
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--gold-2);
+      font-weight: 500;
+    }
+    .page-hero p {
+      max-width: 495px;
+      color: #d8d0c3;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ============================================================
+       SERVICES DETAILED GRID
+       ============================================================ */
+    .services-detailed { padding: 56px 0 36px; }
+    .services-detailed-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .service-detail-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 26px;
+      padding: 24px;
+      border: 1px solid rgba(214,169,79,.22);
+      border-radius: 8px;
+      background: rgba(12,12,11,.78);
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      align-items: stretch;
+    }
+    .service-detail-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(214,169,79,.55);
+      box-shadow: 0 18px 38px rgba(0,0,0,.32);
+    }
+    .service-detail-card .img {
+      position: relative;
+      height: 100%;
+      min-height: 200px;
+      border-radius: 5px;
+      overflow: hidden;
+      background: #0a0908;
+    }
+    .service-detail-card .img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: #050505;
+      filter: saturate(.86) contrast(1.1);
+      transition: transform .55s ease, filter .25s ease;
+    }
+    .service-detail-card:hover .img img {
+      transform: scale(1.05);
+      filter: saturate(1) contrast(1.15);
+    }
+    .service-detail-card .img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.45));
+      pointer-events: none;
+    }
+
+    .service-detail-card .body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px 0 4px;
+    }
+    .service-detail-card h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 28px;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+    .service-detail-card .gold-line {
+      margin-bottom: 16px;
+    }
+    .service-detail-card ul {
+      list-style: none;
+      margin: 0 0 16px;
+      padding: 0;
+      display: grid;
+      gap: 9px;
+    }
+    .service-detail-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #d8cebd;
+      font-size: 12.5px;
+      letter-spacing: .04em;
+    }
+    .service-detail-card li::before {
+      content: "";
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px rgba(214,169,79,.55);
+    }
+    .service-detail-card .more {
+      align-self: flex-start;
+      color: var(--gold-2);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: gap .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-detail-card .more:hover { gap: 14px; }
+
+    /* ============================================================
+       PILLARS ROW (4 features with icons)
+       ============================================================ */
+    .pillars {
+      padding: 36px 0 52px;
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid rgba(214,169,79,.22);
+      border-radius: 8px;
+      background: rgba(8,8,7,.62);
+      overflow: hidden;
+    }
+    .pillar {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 24px;
+      border-right: 1px solid rgba(214,169,79,.16);
+      transition: background .22s ease;
+    }
+    .pillar:last-child { border-right: none; }
+    .pillar:hover { background: rgba(214,169,79,.05); }
+    .pillar-text strong {
+      display: block;
+      color: #fff3df;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .pillar-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    /* ============================================================
+       HELP CTA (Não encontrou o que precisa?)
+       ============================================================ */
+    .help-cta { display: none; }
+    .help-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .help-content {
+      padding: 36px 38px;
+      border: 1px solid rgba(214,169,79,.24);
+      border-radius: 8px;
+      background:
+        radial-gradient(70% 90% at 0% 100%, rgba(214,169,79,.10), transparent 60%),
+        rgba(12,12,11,.82);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .help-content h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 38px;
+      letter-spacing: -.02em;
+      line-height: 1;
+      margin: 8px 0 12px;
+      color: var(--ink);
+    }
+    .help-content p {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 0 0 24px;
+    }
+    .help-content .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .help-card {
+      padding: 28px 28px 26px;
+      border: 1px solid rgba(214,169,79,.30);
+      border-radius: 8px;
+      background:
+        linear-gradient(160deg, rgba(214,169,79,.08), transparent 60%),
+        rgba(10,10,9,.92);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .help-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% -40% auto auto;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(214,169,79,.16), transparent 70%);
+      pointer-events: none;
+    }
+    .help-card .card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .help-card .card-head .icon { width: 38px; height: 38px; }
+    .help-card .card-head .icon svg { width: 18px; height: 18px; }
+    .help-card .card-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .help-card .card-line {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -.015em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin: 0;
+    }
+    .help-card .card-meta {
+      display: grid;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(214,169,79,.18);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .help-card .card-meta div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .help-card .card-meta strong { color: #fff3df; font-weight: 700; }
+    .help-card .pulse {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--success);
+      font-weight: 700;
+    }
+    .help-card .pulse::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 0 rgba(37,211,102,.65);
+      animation: pulseDot 1.8s ease-out infinite;
+    }
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+      100% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+    }
+
+    /* ============================================================
+       CTA BANNER
+       ============================================================ */
+    .cta {
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.35), #080807 32%, #080807 100%),
+        url("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=80") left center / 380px auto no-repeat;
+    }
+    .cta-inner {
+      min-height: 88px;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 16px;
+      align-items: center;
+      padding: 22px 0;
+    }
+    .cta h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(24px, 2.6vw, 36px);
+      font-weight: 600;
+      letter-spacing: -.03em;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .cta p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATIONS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity .85s cubic-bezier(.16, 1, .3, 1),
+        transform .85s cubic-bezier(.16, 1, .3, 1);
+      transition-delay: calc(var(--i, 0) * 90ms);
+      will-change: opacity, transform;
+    }
+    .reveal-left {
+      transform: translate(-32px, 0);
+    }
+    .reveal-scale {
+      transform: translateY(28px) scale(.96);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Hero animates on load (not via observer) */
+    .page-hero .reveal { animation: heroIn .9s cubic-bezier(.16, 1, .3, 1) both; }
+    .page-hero .reveal { transition: none; }
+    .page-hero .reveal:nth-child(1) { animation-delay: 0ms; }
+    .page-hero .reveal:nth-child(2) { animation-delay: 120ms; }
+    .page-hero .reveal:nth-child(3) { animation-delay: 220ms; }
+    .page-hero .reveal:nth-child(4) { animation-delay: 320ms; }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* Stagger via nth-child (avoids inline --i) */
+    .services-detailed-grid > .reveal:nth-child(1) { --i: 0; }
+    .services-detailed-grid > .reveal:nth-child(2) { --i: 1; }
+    .services-detailed-grid > .reveal:nth-child(3) { --i: 2; }
+    .services-detailed-grid > .reveal:nth-child(4) { --i: 3; }
+
+    .pillars-grid > .reveal:nth-child(1) { --i: 0; }
+    .pillars-grid > .reveal:nth-child(2) { --i: 1; }
+    .pillars-grid > .reveal:nth-child(3) { --i: 2; }
+    .pillars-grid > .reveal:nth-child(4) { --i: 3; }
+
+    .help-grid > .reveal:nth-child(1) { --i: 0; }
+    .help-grid > .reveal:nth-child(2) { --i: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer { padding: 12px 0 18px; background: #050505; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 32px;
+      color: #b9b0a1;
+      font-size: 11px;
+    }
+    .footer h4 {
+      color: #f4ead9;
+      margin: 0 0 8px;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+    .footer .brand { min-width: 0; margin-bottom: 8px; }
+    .footer p { color: #978c7d; font-size: 11px; line-height: 1.5; margin: 8px 0 0; max-width: 280px; }
+    .copyright {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line-soft);
+      text-align: center;
+      color: #6f675c;
+      font-size: 10px;
+    }
+
+    /* ============================================================
+       FLOATING WHATSAPP
+       ============================================================ */
+    .whatsapp {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--success);
+      color: white;
+      box-shadow: 0 14px 34px rgba(37,211,102,.35);
+      z-index: 70;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .whatsapp:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 18px 42px rgba(37,211,102,.42); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    /* ============ MOBILE NAV (HAMBURGER) ============ */
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(0,0,0,.4);
+      cursor: pointer;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .nav-toggle:hover { border-color: var(--gold); background: rgba(214,169,79,.08); }
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      margin: 2.5px auto;
+      background: var(--gold-2);
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      inset: 62px 0 0 0;
+      background: rgba(5,5,5,.97);
+      backdrop-filter: blur(20px);
+      z-index: 75;
+      transform: translateY(-110%);
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+      overflow-y: auto;
+    }
+    .mobile-drawer.open { transform: none; }
+    .mobile-drawer ul { list-style: none; margin: 0; padding: 14px var(--pad) 32px; display: grid; }
+    .mobile-drawer a {
+      display: flex;
+      align-items: center;
+      min-height: 56px;
+      padding: 16px 8px;
+      border-bottom: 1px solid rgba(214,169,79,.15);
+      color: #e7dfd1;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .mobile-drawer a:hover, .mobile-drawer a.active { color: var(--gold-2); }
+    .mobile-drawer .mobile-cta {
+      margin-top: 18px;
+      background: linear-gradient(135deg, #f6d887 0%, #c58b2a 100%);
+      color: #12100b;
+      border: 0;
+      border-radius: 4px;
+      justify-content: center;
+      letter-spacing: .12em;
+      font-weight: 800;
+    }
+
+    @media (max-width: 1100px) {
+      .nav { grid-template-columns: auto 1fr auto; }
+      .nav-links { display: none; }
+      .nav-cta { display: none !important; }
+      .nav-toggle { display: inline-flex; }
+      .mobile-drawer { display: block; }
+      .services-detailed-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      .pillar:nth-child(2) { border-right: none; }
+      .pillar { border-bottom: 1px solid rgba(214,169,79,.16); }
+      .pillar:nth-last-child(-n+2) { border-bottom: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      :root { --pad: 18px; }
+      .brand { min-width: 0; }
+      .brand-name { font-size: 13px; }
+      .nav .btn { display: none; }
+      .page-hero {
+        height: auto;
+        padding: 0;
+        background:
+          linear-gradient(180deg, rgba(5,5,5,.78), rgba(5,5,5,.94)),
+          url("assets/images/hero/servicos.png") center 45% / cover;
+      }
+      .page-hero-inner { min-height: auto; padding: 34px 0 26px; }
+      .page-hero h1 { font-size: 44px; }
+      .page-hero p { max-width: 330px; font-size: 13px; }
+      .service-detail-card {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+      .service-detail-card .img { min-height: 180px; height: 180px; }
+      .service-detail-card h3 { font-size: 24px; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar { border-right: none !important; border-bottom: 1px solid rgba(214,169,79,.16); }
+      .pillar:last-child { border-bottom: none; }
+      .cta-inner { grid-template-columns: 1fr; gap: 12px; }
+      .cta-inner .btn { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================ NAVBAR ============================ -->
+  <header class="site-header">
+    <nav class="container nav" aria-label="Navegação principal">
+      <a href="index.html" class="brand" aria-label="Ateliê Dental">
+        <svg class="brand-mark" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+          <path d="M28 8c-8.8 0-15 5-15 12.7 0 5.1 1.3 8.8 2.5 15.1 1.2 6.2 1.3 10 1.3 14.9 0 2.6 1.3 5.1 3.9 5.1 2.8 0 4-2.5 5.2-7.7 1.2-5.1 1.4-7.6 2.1-7.6.8 0 1 2.5 2.2 7.6 1.2 5.2 2.4 7.7 5.1 7.7 2.7 0 4-2.5 4-5.1 0-4.9 0-8.7 1.2-14.9 1.2-6.3 2.5-10 2.5-15.1C43 13 36.8 8 28 8Z" stroke="currentColor" stroke-width="2.3"/>
+        </svg>
+        <span class="brand-name">Ateliê Dental <small>Laboratório de próteses</small></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a class="active" href="servicos.html">Serviços</a></li>
+        <li><a href="como-funciona.html">Como funciona</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="tecnologia.html">Tecnologia</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+
+      <a class="btn nav-cta" href="contato.html">Solicitar orçamento <span>→</span></a>
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+  <aside id="mobile-nav" class="mobile-drawer" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a class="active" href="servicos.html">Serviços</a></li>
+      <li><a href="como-funciona.html">Como funciona</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="tecnologia.html">Tecnologia</a></li>
+      <li><a href="contato.html">Contato</a></li>
+      <li><a class="mobile-cta" href="contato.html">Solicitar orçamento →</a></li>
+    </ul>
+  </aside>
+
+  <main>
+
+    <!-- ============================ PAGE HERO ============================ -->
+    <section class="page-hero">
+      <div class="container page-hero-inner">
+        <span class="eyebrow reveal">Catálogo técnico</span>
+        <h1 class="reveal">Serviços para todos os perfis<br><em>de caso clínico</em></h1>
+        <p class="reveal">Da unitária mais simples às reabilitações complexas, com qualidade consistente e tecnologia que acompanha cada etapa do fluxo digital.</p>
+      </div>
+    </section>
+
+    <!-- ============================ SERVICES GRID ============================ -->
+    <section class="services-detailed" id="servicos">
+      <div class="container services-detailed-grid">
+
+        <!-- 1. PROTESE FIXA -->
+        <article class="service-detail-card reveal reveal-scale">
+          <div class="img">
+            <img loading="lazy" src="assets/images/services/protese-fixa.png" alt="Prótese fixa em zircônia e cerâmica">
+          </div>
+          <div class="body">
+            <div>
+              <h3>Prótese Fixa</h3>
+              <span class="gold-line"></span>
+              <ul>
+                <li>Coroas unitárias em zircônia, dissilicato e cerâmica feldspática</li>
+                <li>Pontes fixas e provisórias de longa duração</li>
+                <li>Inlays, onlays e overlays cerâmicos</li>
+                <li>Facetas laminadas e lentes de contato</li>
+                <li>Coroas metalocerâmicas tradicionais</li>
+              </ul>
+            </div>
+            <a href="contato.html" class="more">Solicitar orçamento <span>→</span></a>
+          </div>
+        </article>
+
+        <!-- 2. PROTESE SOBRE IMPLANTE -->
+        <article class="service-detail-card reveal reveal-scale">
+          <div class="img">
+            <img loading="lazy" src="assets/images/services/protese-sobre-implante.png" alt="Prótese sobre implante">
+          </div>
+          <div class="body">
+            <div>
+              <h3>Prótese Sobre Implante</h3>
+              <span class="gold-line"></span>
+              <ul>
+                <li>Coroas implanto-suportadas parafusadas e cimentadas</li>
+                <li>Protocolos de carga imediata e diferida</li>
+                <li>Próteses sobre barra (overdentures)</li>
+                <li>Componentes individualizados em CAD/CAM</li>
+                <li>Reabilitações totais All-on-4 / All-on-6</li>
+              </ul>
+            </div>
+            <a href="contato.html" class="more">Solicitar orçamento <span>→</span></a>
+          </div>
+        </article>
+
+        <!-- 3. PROTESE TOTAL / PARCIAL -->
+        <article class="service-detail-card reveal reveal-scale">
+          <div class="img">
+            <img loading="lazy" src="assets/images/services/protese-total-parcial.png" alt="Prótese total e parcial">
+          </div>
+          <div class="body">
+            <div>
+              <h3>Prótese Total / Parcial</h3>
+              <span class="gold-line"></span>
+              <ul>
+                <li>Próteses totais convencionais com dentes premium</li>
+                <li>Próteses parciais removíveis em cromo-cobalto</li>
+                <li>Próteses flexíveis em nylon (sem grampos metálicos)</li>
+                <li>Esquelete fundido com encaixes de precisão</li>
+                <li>Reembasamentos e consertos com prazo prioritário</li>
+              </ul>
+            </div>
+            <a href="contato.html" class="more">Solicitar orçamento <span>→</span></a>
+          </div>
+        </article>
+
+        <!-- 4. ORTOPEDIA E ESPORTIVA -->
+        <article class="service-detail-card reveal reveal-scale">
+          <div class="img">
+            <img loading="lazy" src="assets/images/services/ortopedia-e-esportiva.png" alt="Placas e moldeiras">
+          </div>
+          <div class="body">
+            <div>
+              <h3>Ortopedia e Esportiva</h3>
+              <span class="gold-line"></span>
+              <ul>
+                <li>Placas miorrelaxantes para bruxismo</li>
+                <li>Placas de clareamento personalizadas</li>
+                <li>Moldeiras esportivas individualizadas</li>
+                <li>Aparelhos ortopédicos funcionais simples</li>
+                <li>Mantenedores e contensões pós-ortodontia</li>
+              </ul>
+            </div>
+            <a href="contato.html" class="more">Solicitar orçamento <span>→</span></a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================ PILLARS ============================ -->
+    <section class="pillars">
+      <div class="container">
+        <div class="pillars-grid">
+          <div class="pillar reveal reveal-left">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2M12 18.5v2M6 6l1.4 1.4M16.6 16.6L18 18M3.5 12h2M18.5 12h2M6 18l1.4-1.4M16.6 7.4L18 6"/><circle cx="12" cy="12" r="6.7"/></svg>
+            </span>
+            <div class="pillar-text">
+              <strong>Tecnologia CAD/CAM</strong>
+              <span>Precisão e agilidade nos resultados.</span>
+            </div>
+          </div>
+
+          <div class="pillar reveal reveal-left">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <div class="pillar-text">
+              <strong>Prazo cumprido</strong>
+              <span>Do início até a entrega no consultório.</span>
+            </div>
+          </div>
+
+          <div class="pillar reveal reveal-left">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <div class="pillar-text">
+              <strong>Materiais premium</strong>
+              <span>Padrão ético e clínico em cada peça.</span>
+            </div>
+          </div>
+
+          <div class="pillar reveal reveal-left">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M3 9h18M7 14h4"/></svg>
+            </span>
+            <div class="pillar-text">
+              <strong>Fluxo digital</strong>
+              <span>Integrado com o seu consultório.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ HELP CTA ============================ -->
+    <section class="help-cta" aria-hidden="true">
+      <div class="container help-grid">
+        <div class="help-content reveal">
+          <span class="eyebrow">Suporte técnico</span>
+          <h2>Não encontrou o que precisa?</h2>
+          <p>Avaliamos cada caso individualmente. Envie seus exames e detalhes do paciente para receber uma proposta técnica do nosso laboratório — sem compromisso.</p>
+          <div class="actions">
+            <a href="contato.html" class="btn btn-primary">Solicitar Orçamento <span>→</span></a>
+            <a href="https://wa.me/" target="_blank" rel="noopener" class="btn btn-wa">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+              Chamar no WhatsApp <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="help-card reveal">
+          <div class="card-head">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 01-1 4 8.5 8.5 0 01-7.5 4.5 8.4 8.4 0 01-4-1L3 21l2-5.5a8.4 8.4 0 01-1-4A8.5 8.5 0 0112.5 3 8.4 8.4 0 0121 11.5z"/></svg>
+            </span>
+            <span class="card-title">Atendimento personalizado</span>
+          </div>
+          <p class="card-line">Resposta em até <em style="color:var(--gold-2);font-style:italic;">24 a 48h úteis</em> para qualquer caso.</p>
+          <div class="card-meta">
+            <div><span>Atendimento</span><strong>Seg–Sex · 8h às 18h</strong></div>
+            <div><span>WhatsApp</span><strong>(11) 99900-9090</strong></div>
+            <div><span>E-mail</span><strong>tecnico@ateliedental.com.br</strong></div>
+          </div>
+          <span class="pulse">Online agora</span>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================ CTA BANNER ============================ -->
+    <section class="cta" id="contato">
+      <div class="container cta-inner">
+        <div class="reveal">
+          <h2>Pronto para enviar seu primeiro caso?</h2>
+          <p>Solicite um orçamento sem compromisso ou converse com nosso técnico agora mesmo.</p>
+        </div>
+        <a class="btn btn-primary reveal" href="contato.html">Solicitar orçamento <span>→</span></a>
+        <a class="btn btn-wa reveal" href="https://wa.me/" target="_blank" rel="noopener">Chamar no WhatsApp <span>→</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+            <path d="M28 8c-8.8 0-15 5-15 12.7 0 5.1 1.3 8.8 2.5 15.1 1.2 6.2 1.3 10 1.3 14.9 0 2.6 1.3 5.1 3.9 5.1 2.8 0 4-2.5 5.2-7.7 1.2-5.1 1.4-7.6 2.1-7.6.8 0 1 2.5 2.2 7.6 1.2 5.2 2.4 7.7 5.1 7.7 2.7 0 4-2.5 4-5.1 0-4.9 0-8.7 1.2-14.9 1.2-6.3 2.5-10 2.5-15.1C43 13 36.8 8 28 8Z" stroke="currentColor" stroke-width="2.3"/>
+          </svg>
+          <span class="brand-name">Ateliê Dental <small>Laboratório de próteses</small></span>
+        </div>
+        <p>Excelência em prótese dental com tecnologia, precisão e compromisso com os resultados.</p>
+      </div>
+      <div><h4>Navegação</h4><ul><li><a href="index.html">Início</a></li><li><a href="servicos.html">Serviços</a></li><li><a href="como-funciona.html">Como funciona</a></li><li><a href="contato.html">Contato</a></li></ul></div>
+      <div><h4>Serviços</h4><ul><li>Prótese Fixa</li><li>Sobre Implante</li><li>Total / Parcial</li><li>Ortopedia</li></ul></div>
+      <div><h4>Tecnologia</h4><ul><li>Fluxo digital</li><li>CAD/CAM</li><li>Materiais premium</li><li>Padrão de qualidade</li></ul></div>
+      <div><h4>Contato</h4><ul><li>(11) 99900-9090</li><li>contato@ateliedental.com.br</li><li>Rua das Orquídeas, 123</li><li>São Paulo/SP</li></ul></div>
+    </div>
+    <div class="container copyright">© 2026 Ateliê Dental Laboratório de Próteses. Todos os direitos reservados.</div>
+  </footer>
+
+  <script>
+    (function() {
+      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('in'); });
+        return;
+      }
+      // Hero animates immediately on load (no observer)
+      document.querySelectorAll('.page-hero .reveal').forEach(function(el) { el.classList.add('in'); });
+
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      els.forEach(function(el) {
+        if (!el.closest('.page-hero')) io.observe(el);
+      });
+    })();
+
+    /* ============ HAMBURGER MENU ============ */
+    (function(){
+      var t = document.querySelector('.nav-toggle');
+      var d = document.getElementById('mobile-nav');
+      if (!t || !d) return;
+      function set(open){
+        t.setAttribute('aria-expanded', open);
+        d.classList.toggle('open', open);
+        d.setAttribute('aria-hidden', !open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        t.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      }
+      t.addEventListener('click', function(){ set(t.getAttribute('aria-expanded') !== 'true'); });
+      d.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ set(false); }); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') set(false); });
+      window.addEventListener('resize', function(){ if (window.innerWidth > 1100) set(false); });
+    })();
+  </script>
+
+  <!-- ============================ FLOATING WHATSAPP ============================ -->
+  <a class="whatsapp" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+    <svg width="27" height="27" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+    </svg>
+  </a>
+
+</body>
+</html>
+
