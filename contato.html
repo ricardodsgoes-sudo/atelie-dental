@@ -492,9 +492,7 @@
     .cta {
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(5,5,5,.24), #080807 34%, #080807 100%),
-        url("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=80") left center / 390px auto no-repeat;
+      background: #080807;
     }
     .cta-inner {
       min-height: 106px;
@@ -531,6 +529,8 @@
       text-transform: uppercase;
     }
     .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+    .footer ul a { transition: color .2s ease; }
+    .footer ul a:hover { color: var(--gold-2); }
     .footer .brand { min-width: 0; margin-bottom: 8px; }
     .footer p { color: #978c7d; font-size: 11px; line-height: 1.5; margin: 8px 0 0; max-width: 280px; }
     .copyright {
@@ -656,16 +656,18 @@
       .brand-name { font-size: 13px; }
       .nav .btn { display: none; }
       .hero { background-size: cover; background-position: center; }
-      .hero { height: auto; }
-      .hero::before { background: rgba(5,5,5,.64); }
-      .hero-inner { min-height: auto; }
-      .hero-copy { padding: 38px 0; }
+      .hero { height: auto; min-height: 380px; }
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(5,5,5,.55) 0%, rgba(5,5,5,.35) 45%, rgba(5,5,5,.78) 100%);
+      }
+      .hero-inner { min-height: 380px; align-items: center; }
+      .hero-copy { padding: 44px 0 34px; }
       .hero p { max-width: 340px; }
       .form-grid, .stats, .why-list { grid-template-columns: 1fr; }
       .stat { border-right: none; border-bottom: 1px solid rgba(214,169,79,.24); }
       .stat:last-child { border-bottom: none; }
       .why-copy, .visit, .form-panel { padding: 24px 20px; }
-      .cta { background-position: left top; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -755,7 +757,7 @@
     </section>
 
     <section class="container stats reveal">
-      <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 4l6 2.4v4.8c0 4-2.4 6.8-6 8.8-3.6-2-6-4.8-6-8.8V6.4L12 4z"/><path d="M9 12l2 2 4-4"/></svg></span><div><strong>+5 anos</strong><span>de experiência</span></div></div>
+      <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 4l6 2.4v4.8c0 4-2.4 6.8-6 8.8-3.6-2-6-4.8-6-8.8V6.4L12 4z"/><path d="M9 12l2 2 4-4"/></svg></span><div><strong>+15 anos</strong><span>de experiência</span></div></div>
       <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M16 19v-2a4 4 0 00-8 0v2"/><circle cx="12" cy="8" r="3"/><path d="M21 19v-2a4 4 0 00-3-3.87M3 19v-2a4 4 0 013-3.87"/></svg></span><div><strong>+350</strong><span>clínicas parceiras</span></div></div>
       <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 4 6 7c0 2 .5 3.5 1 6 .5 2.5.5 4 .5 6 0 1 .5 2 1.5 2s1.5-1 2-3 .5-3 1-3 .5 1 1 3 1 3 2 3 1.5-1 1.5-2c0-2 0-3.5.5-6 .5-2.5 1-4 1-6 0-3-2.5-5-6-5z"/></svg></span><div><strong>+8.500</strong><span>casos entregues</span></div></div>
       <div class="stat"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><strong>100%</strong><span>fluxo digital CAD/CAM</span></div></div>
@@ -813,10 +815,10 @@
         </div>
         <p>Excelência em prótese dental com tecnologia, precisão e compromisso com os resultados.</p>
       </div>
-      <div><h4>Navegação</h4><ul><li><a href="index.html">Início</a></li><li><a href="servicos.html">Serviços</a></li><li><a href="como-funciona.html">Como funciona</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="tecnologia.html">Tecnologia</a></li></ul></div>
-      <div><h4>Serviços</h4><ul><li>Prótese Fixa</li><li>Sobre Implante</li><li>Total / Parcial</li><li>Ortopedia</li></ul></div>
-      <div><h4>Tecnologia</h4><ul><li>Fluxo digital</li><li>CAD/CAM</li><li>Materiais premium</li><li>Padrão de qualidade</li></ul></div>
-      <div><h4>Contato</h4><ul><li>(11) 99900-9090</li><li>contato@ateliedental.com.br</li><li>Rua das Orquídeas, 123</li><li>São Paulo/SP</li></ul></div>
+      <div><h4>Navegação</h4><ul><li><a href="index.html">Início</a></li><li><a href="servicos.html">Serviços</a></li><li><a href="como-funciona.html">Como funciona</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="tecnologia.html">Tecnologia</a></li><li><a href="contato.html">Contato</a></li></ul></div>
+      <div><h4>Serviços</h4><ul><li><a href="servicos.html">Prótese Fixa</a></li><li><a href="servicos.html">Sobre Implante</a></li><li><a href="servicos.html">Total / Parcial</a></li><li><a href="servicos.html">Ortopedia</a></li></ul></div>
+      <div><h4>Tecnologia</h4><ul><li><a href="tecnologia.html">Fluxo digital</a></li><li><a href="tecnologia.html">CAD/CAM</a></li><li><a href="tecnologia.html">Materiais premium</a></li><li><a href="tecnologia.html">Padrão de qualidade</a></li></ul></div>
+      <div><h4>Contato</h4><ul><li><a href="tel:+5511999009090">(11) 99900-9090</a></li><li><a href="mailto:contato@ateliedental.com.br">contato@ateliedental.com.br</a></li><li><a href="https://www.google.com/maps/search/?api=1&amp;query=Rua+das+Orqu%C3%ADdeas%2C+123%2C+S%C3%A3o+Paulo%2C+SP" target="_blank" rel="noopener">Rua das Orquídeas, 123</a></li><li>São Paulo/SP</li></ul></div>
     </div>
     <div class="container copyright">© 2026 Ateliê Dental Laboratório de Próteses. Todos os direitos reservados.</div>
   </footer>
