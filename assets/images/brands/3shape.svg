@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 70" role="img" aria-labelledby="title">
-  <title id="title">3Shape</title>
-  <rect width="260" height="70" fill="none"/>
-  <text x="0" y="47" fill="#7A8A8D" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" letter-spacing="-1.5">3Shape</text>
-  <path d="M217 18l28 17-28 17z" fill="none" stroke="#7A8A8D" stroke-width="6" stroke-linejoin="round"/>
-</svg>

@@ -188,6 +188,28 @@
       background: rgba(3,3,3,.86);
       border-bottom: 1px solid rgba(214,169,79,.22);
       backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    .nav-spotlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 340px;
+      height: 340px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(240,199,110,.22) 0%, rgba(214,169,79,.10) 32%, transparent 65%);
+      opacity: 0;
+      transition: opacity .4s ease;
+      mix-blend-mode: screen;
+      z-index: 1;
+      will-change: transform, opacity;
+      transform: translate(-50%, -50%);
+    }
+    .site-header.spotlight-active .nav-spotlight { opacity: 1; }
+    .nav { position: relative; z-index: 2; }
+    @media (hover: none), (max-width: 1100px) {
+      .nav-spotlight { display: none; }
+      .site-header { overflow: visible; }
     }
     .nav {
       height: 62px;
@@ -208,6 +230,7 @@
     }
     .brand-name small { color: var(--muted); font-size: 7px; letter-spacing: .26em; }
     .nav-links { display: flex; justify-content: center; gap: 34px; list-style: none; margin: 0; padding: 0; }
+    .nav-links { position: relative; }
     .nav-links a {
       position: relative;
       color: #e7dfd1;
@@ -215,16 +238,34 @@
       font-weight: 800;
       letter-spacing: .14em;
       text-transform: uppercase;
+      transition: color .25s ease, letter-spacing .32s cubic-bezier(.16,1,.3,1);
     }
     .nav-links a.active,
     .nav-links a:hover { color: var(--gold-2); }
-    .nav-links a.active::after {
-      content: "";
+    .nav-links a:hover { letter-spacing: .20em; }
+
+    .nav-indicator {
       position: absolute;
-      left: 0; right: 0;
       bottom: -14px;
+      left: 0;
+      width: 0;
       height: 1px;
       background: var(--gold);
+      box-shadow: 0 0 12px rgba(214,169,79,.55);
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, width;
+    }
+    @media (hover: none), (max-width: 1100px) {
+      .nav-indicator { display: none; }
+      .nav-links a.active::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0;
+        bottom: -14px;
+        height: 1px;
+        background: var(--gold);
+      }
     }
 
     /* ============ PAGE HERO ============ */
@@ -852,6 +893,7 @@
 
   <!-- ============ NAVBAR ============ -->
   <header class="site-header">
+    <div class="nav-spotlight" aria-hidden="true"></div>
     <nav class="container nav" aria-label="Navegação principal">
       <a href="index.html" class="brand" aria-label="Ateliê Dental">
         <svg class="brand-mark" viewBox="0 0 56 56" fill="none" aria-hidden="true">
@@ -866,6 +908,7 @@
         <li><a class="active" href="sobre.html">Sobre</a></li>
         <li><a href="tecnologia.html">Tecnologia</a></li>
         <li><a href="contato.html">Contato</a></li>
+      <span class="nav-indicator" aria-hidden="true"></span>
       </ul>
       <a class="btn nav-cta" href="contato.html">Solicitar orçamento <span>→</span></a>
       <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav" type="button">
@@ -1003,7 +1046,7 @@
         <div class="tech-images">
 
           <article class="tech-feat reveal reveal-scale">
-            <img loading="lazy" src="assets/images/modelagem-cad.webp" alt="Estação de modelagem digital">
+            <img loading="lazy" src="assets/images/tecnologia/modelagem-cad.webp" alt="Estação de modelagem digital">
             <div class="cap">
               <small>Modelagem CAD</small>
               <strong>Planejamento digital</strong>
@@ -1011,7 +1054,7 @@
           </article>
 
           <article class="tech-feat reveal reveal-scale">
-            <img loading="lazy" src="assets/images/fresadora-5-eixos.webp" alt="Fresadora 5 eixos">
+            <img loading="lazy" src="assets/images/tecnologia/fresadora-5-eixos.webp" alt="Fresadora 5 eixos">
             <div class="cap">
               <small>Fresamento</small>
               <strong>5 eixos · CAM</strong>
@@ -1019,7 +1062,7 @@
           </article>
 
           <article class="tech-feat reveal reveal-scale">
-            <img loading="lazy" src="assets/images/acabamento-artesanal.webp" alt="Bancada de finalização">
+            <img loading="lazy" src="assets/images/tecnologia/acabamento-artesanal.webp" alt="Bancada de finalização">
             <div class="cap">
               <small>Bancada</small>
               <strong>Acabamento artesanal</strong>
@@ -1116,6 +1159,7 @@
     </svg>
   </a>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
     (function() {
       var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1136,6 +1180,66 @@
       els.forEach(function(el) { if (!el.closest('.page-hero')) io.observe(el); });
     })();
 
+    
+    /* ============ NAV SPOTLIGHT (cursor halo) ============ */
+    (function(){
+      if (window.matchMedia('(hover: none)').matches) return;
+      if (window.matchMedia('(max-width: 1100px)').matches) return;
+      var header = document.querySelector('.site-header');
+      var spotlight = header && header.querySelector('.nav-spotlight');
+      if (!header || !spotlight || !window.gsap) return;
+
+      var xTo = gsap.quickTo(spotlight, 'x', { duration: 0.55, ease: 'power3.out' });
+      var yTo = gsap.quickTo(spotlight, 'y', { duration: 0.55, ease: 'power3.out' });
+
+      header.addEventListener('mousemove', function(e){
+        var rect = header.getBoundingClientRect();
+        xTo(e.clientX - rect.left);
+        yTo(e.clientY - rect.top);
+      });
+      header.addEventListener('mouseenter', function(){ header.classList.add('spotlight-active'); });
+      header.addEventListener('mouseleave', function(){ header.classList.remove('spotlight-active'); });
+    })();
+
+    /* ============ NAV SLIDING INDICATOR ============ */
+    (function(){
+      if (window.matchMedia('(max-width: 1100px)').matches) return;
+      var navLinks = document.querySelector('.nav-links');
+      var indicator = navLinks && navLinks.querySelector('.nav-indicator');
+      if (!navLinks || !indicator || !window.gsap) return;
+
+      var links = navLinks.querySelectorAll('a');
+      var activeLink = navLinks.querySelector('a.active') || links[0];
+
+      function move(target, instant){
+        if (!target) return;
+        var r = target.getBoundingClientRect();
+        var p = navLinks.getBoundingClientRect();
+        gsap.to(indicator, {
+          x: r.left - p.left,
+          width: r.width,
+          duration: instant ? 0 : 0.42,
+          ease: 'power3.out',
+          overwrite: true
+        });
+      }
+
+      requestAnimationFrame(function(){
+        move(activeLink, true);
+        gsap.to(indicator, { opacity: 1, duration: 0.35, delay: 0.05 });
+      });
+
+      links.forEach(function(link){
+        link.addEventListener('mouseenter', function(){ move(link); });
+      });
+      navLinks.addEventListener('mouseleave', function(){ move(activeLink); });
+
+      var resizeTimer;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){ move(activeLink, true); }, 150);
+      });
+    })();
     /* ============ HAMBURGER MENU ============ */
     (function(){
       var t = document.querySelector('.nav-toggle');

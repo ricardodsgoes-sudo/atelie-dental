@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 70" role="img" aria-labelledby="title">
-  <title id="title">Straumann</title>
-  <rect width="280" height="70" fill="none"/>
-  <g fill="#9A9A9A">
-    <path d="M18 18h29v7H29v8h15v7H29v12H18z"/>
-    <path d="M58 48c-4 0-8-1-11-3l3-6c3 2 6 3 9 3 2 0 4-.7 4-2 0-4-15-.9-15-10 0-6 5-9 12-9 4 0 8 .9 11 2.8l-3 6c-2.5-1.5-5-2.2-8-2.2-2 0-3.5.6-3.5 1.9 0 3.7 15 .8 15 10 0 5.5-5 8.5-13.5 8.5z"/>
-    <text x="82" y="45" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="-.8">straumann</text>
-  </g>
-</svg>
