@@ -357,19 +357,6 @@
     }
     .hero > .container { position: relative; z-index: 2; }
 
-    /* Split text masks for H1 word reveal */
-    .hero h1 .word-mask {
-      display: inline-block;
-      overflow: hidden;
-      padding-bottom: 0.18em;
-      margin-bottom: -0.18em;
-      vertical-align: top;
-    }
-    .hero h1 .word {
-      display: inline-block;
-      will-change: transform;
-    }
-
     .hero::before {
       content: none;
     }
@@ -1798,25 +1785,16 @@
         });
       }
 
-      /* ============ HERO GSAP TIMELINE (split + Ken Burns) ============ */
+      /* ============ HERO GSAP TIMELINE (Ken Burns + entrance) ============ */
       if (hasGsap) {
         var hero = document.querySelector('.hero');
         var bg = hero && hero.querySelector('.hero-bg');
         var h1 = hero && hero.querySelector('h1');
 
-        // Split H1 into masked words
-        if (h1 && !h1.dataset.split) {
-          var words = h1.textContent.trim().split(/\s+/);
-          h1.innerHTML = words.map(function(w) {
-            return '<span class="word-mask"><span class="word">' + w + '</span></span>';
-          }).join(' ');
-          h1.dataset.split = '1';
-        }
-
         // Initial states (avoids flash of unstyled animation)
         gsap.set('.hero-bg', { scale: 1.12 });
         gsap.set('.hero .eyebrow', { opacity: 0, y: 16 });
-        gsap.set('.hero h1 .word', { yPercent: 110 });
+        gsap.set(h1, { opacity: 0, y: 22 });
         gsap.set('.hero .hero-content > p', { opacity: 0, y: 14 });
         gsap.set('.hero .hero-actions', { opacity: 0, y: 14 });
         gsap.set('.hero .hero-feature', { opacity: 0, y: 12 });
@@ -1830,10 +1808,10 @@
           .to('.hero .eyebrow', {
             opacity: 1, y: 0, duration: 0.7
           }, '-=1.25')
-          .to('.hero h1 .word', {
-            yPercent: 0,
-            duration: 1.0,
-            stagger: 0.075,
+          .to(h1, {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
             ease: 'expo.out'
           }, '-=0.55')
           .to('.hero .hero-content > p', {
